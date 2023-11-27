@@ -4,6 +4,7 @@ import com.naruto.api.characters.Character;
 import com.naruto.api.characters.CharacterRepository;
 import com.naruto.api.characters.CharactersPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ public class CharacterController {
     private CharacterRepository repository;
 
     @PostMapping
+    @Transactional
     public void register(@RequestBody CharactersPostDTO data) {
         repository.save(new Character(data));
     }

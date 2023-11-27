@@ -1,5 +1,6 @@
 package com.naruto.api.characters;
 
+import com.google.gson.Gson;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -16,18 +17,19 @@ public class Character {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String[] jutsu;
-    @Enumerated(EnumType.STRING)
-    private NatureType[] natureType;
+    private String jutsu;
+    private String natureType;
     @Embedded
     private Personal personal;
-    private String[] tools;
+    private String tools;
 
     public Character(CharactersPostDTO data) {
+        Gson gson = new Gson();
+
         this.name = data.name();
-        this.jutsu = data.jutsu();
-        this.natureType = data.natureType();
+        this.jutsu = gson.toJson(data.jutsu());
+        this.natureType = gson.toJson(data.natureType());
         this.personal = new Personal(data.personal());
-        this.tools = data.tools();
+        this.tools = gson.toJson(data.tools());
     }
 }
