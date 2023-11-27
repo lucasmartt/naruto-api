@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CharactersGetDTO {
+        Long id;
         String name;
         String[] jutsu;
         NatureType[] natureType;
@@ -18,6 +19,7 @@ public class CharactersGetDTO {
         public CharactersGetDTO(Character character) {
                 Gson gson = new Gson();
 
+                this.id = character.getId();
                 this.name = character.getName();
                 this.jutsu = gson.fromJson(character.getJutsu(), String[].class);
                 this.natureType = gson.fromJson(character.getNatureType(), NatureType[].class);

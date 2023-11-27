@@ -5,10 +5,11 @@ import com.naruto.api.characters.CharacterRepository;
 import com.naruto.api.characters.CharactersGetDTO;
 import com.naruto.api.characters.CharactersPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/characters")
@@ -24,8 +25,13 @@ public class CharacterController {
     }
 
     @GetMapping
-    public List<CharactersGetDTO> list() {
-        return repository.findAll().stream().map(CharactersGetDTO::new).toList();
+    public Page<CharactersGetDTO> list(Pageable pageable) {
+        return repository.findAll(pageable).map(CharactersGetDTO::new);
+    }
+
+    @GetMapping("/{id}")
+    public CharactersGetDTO getById(@PathVariable Long id) {
+        return repository.findById(id).map(CharactersGetDTO::new).orElse(null);
     }
 
 }
