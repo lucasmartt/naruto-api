@@ -1,16 +1,20 @@
 package com.naruto.api.characters;
 
 import com.google.gson.Gson;
-import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-public record CharactersGetDTO(
-        @NotBlank
-        String name,
-        String[] jutsu,
-        NatureType[] natureType,
-        PersonalGetDTO personal,
-        String[] tools
-) {
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class CharactersGetDTO {
+        String name;
+        String[] jutsu;
+        NatureType[] natureType;
+        PersonalGetDTO personal;
+        String[] tools;
+
         public CharactersGetDTO(Character character) {
                 Gson gson = new Gson();
 

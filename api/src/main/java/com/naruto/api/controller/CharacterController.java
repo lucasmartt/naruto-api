@@ -25,7 +25,7 @@ public class CharacterController {
 
     @GetMapping
     public List<CharactersGetDTO> list() {
-        return repository.findAll().stream().map(CharactersGetDTO::new);
+        return repository.findAll().stream().map(CharactersGetDTO::new).toList();
     }
 
 }

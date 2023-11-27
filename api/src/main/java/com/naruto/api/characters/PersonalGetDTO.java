@@ -11,11 +11,13 @@ public record PersonalGetDTO(
         String clan
 ) {
     public PersonalGetDTO(Personal personal) {
-        this.birthdate = personal.getBirthdate();
-        this.sex = personal.getSex();
-        this.age = personal.getAge();
-        this.height = personal.getHeight();
-        this.weight = personal.getWeight();
-        this.clan = personal.getClan();
+        this(
+                personal.getBirthdate(),
+                personal.getSex(),
+                personal.getAge(),
+                personal.getHeight(),
+                personal.getWeight(),
+                personal.getClan()
+        );
     }
 }
