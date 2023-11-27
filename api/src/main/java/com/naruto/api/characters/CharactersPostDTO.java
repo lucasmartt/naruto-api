@@ -4,6 +4,6 @@ public record CharactersPostDTO(
         String name,
         String[] jutsu,
         NatureType[] natureType,
-        Personal personal,
+        PersonalPostDTO personal,
         String[] tools
 ) {}
