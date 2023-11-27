@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 
 @Table(name = "characters")
 @Entity(name = "Character")
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Getter
 public class Character {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
