@@ -30,8 +30,15 @@ public class CharacterController {
     }
 
     @GetMapping("/{id}")
+    @Transactional
     public CharactersGetDTO getById(@PathVariable Long id) {
         return repository.findById(id).map(CharactersGetDTO::new).orElse(null);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable Long id) {
+        repository.deleteById(id);
     }
 
 }
