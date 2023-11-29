@@ -14,19 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Personal {
     private String birthdate;
-    @Enumerated(EnumType.STRING)
-    private Sex sex;
-    private int age;
-    private String height;
-    private String weight;
+    private String sex;
     private String clan;
 
     public Personal(PersonalPostDTO data) {
         this.birthdate = data.birthdate();
         this.sex = data.sex();
-        this.age = data.age();
-        this.height = data.height();
-        this.weight = data.weight();
         this.clan = data.clan();
     }
 }

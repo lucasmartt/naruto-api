@@ -12,7 +12,7 @@ public class CharactersGetDTO {
         Long id;
         String name;
         String[] jutsu;
-        NatureType[] natureType;
+        String[] natureType;
         PersonalGetDTO personal;
         String[] tools;
 
@@ -22,8 +22,10 @@ public class CharactersGetDTO {
                 this.id = character.getId();
                 this.name = character.getName();
                 this.jutsu = gson.fromJson(character.getJutsu(), String[].class);
-                this.natureType = gson.fromJson(character.getNatureType(), NatureType[].class);
-                this.personal = new PersonalGetDTO(character.getPersonal());
+                this.natureType = gson.fromJson(character.getNatureType(), String[].class);
+                if (character.getPersonal() != null) {
+                        this.personal = new PersonalGetDTO(character.getPersonal());
+                }
                 this.tools = gson.fromJson(character.getTools(), String[].class);
         }
 }

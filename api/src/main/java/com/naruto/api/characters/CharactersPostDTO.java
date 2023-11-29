@@ -1,13 +1,16 @@
 package com.naruto.api.characters;
 
-import jakarta.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record CharactersPostDTO(
+        @NotNull
+        Long id,
         @NotBlank
         String name,
         String[] jutsu,
-        NatureType[] natureType,
+        String[] natureType,
         PersonalPostDTO personal,
         String[] tools
 ) {}
