@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,17 +20,17 @@ public class CharacterController {
 
     @PostMapping
     @Transactional
-    public void postNewCharacter(@RequestBody CharactersPostDTO data) {
-        characterService.postNewCharacter(data);
+    public ResponseEntity postNewCharacter(@RequestBody CharactersPostDTO data) {
+        return characterService.postNewCharacter(data);
     }
 
     @GetMapping(path = "/local", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<CharactersGetDTO> getAllLocalCharacters(Pageable pageable) {
+    public ResponseEntity<Page<CharactersGetDTO>> getAllLocalCharacters(Pageable pageable) {
         return characterService.getAllLocalCharacters(pageable);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getAllCharacters(
+    public ResponseEntity<String> getAllCharacters(
             @RequestParam(required = false, defaultValue = "1") String page,
             @RequestParam(required = false, defaultValue = "20") String size
     ) {
@@ -38,13 +39,13 @@ public class CharacterController {
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
-    public CharactersGetDTO getCharacterById(@PathVariable Long id) {
+    public ResponseEntity<CharactersGetDTO> getCharacterById(@PathVariable Long id) {
         return characterService.getCharacterById(id);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void deleteCharacterById(@PathVariable Long id) {
-        characterService.deleteCharacterById(id);;
+    public ResponseEntity deleteCharacterById(@PathVariable Long id) {
+        return characterService.deleteCharacterById(id);
     }
 }

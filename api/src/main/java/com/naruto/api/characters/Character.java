@@ -41,6 +41,7 @@ public class Character {
         this.personal = new Personal(data.personal());
         this.tools = gson.toJson(data.tools());
     }
+
     public Character(CharactersPostDTO data) {
         Gson gson = new Gson();
 
