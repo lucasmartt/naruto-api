@@ -1,12 +1,14 @@
-package com.naruto.api.characters.dto;
+package com.naruto.api.dto;
 
 import com.google.gson.Gson;
-import com.naruto.api.characters.repository.Character;
+import com.naruto.api.models.Character;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CharactersGetDTO {

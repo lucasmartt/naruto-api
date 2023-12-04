@@ -1,10 +1,10 @@
 package com.naruto.api.service;
 
-import com.naruto.api.characters.dto.CharacterPutDTO;
-import com.naruto.api.characters.repository.Character;
-import com.naruto.api.characters.dto.CharactersGetDTO;
-import com.naruto.api.characters.dto.CharactersPostDTO;
-import com.naruto.api.characters.repository.CharacterRepository;
+import com.naruto.api.dto.CharactersPutDTO;
+import com.naruto.api.models.Character;
+import com.naruto.api.dto.CharactersGetDTO;
+import com.naruto.api.dto.CharactersPostDTO;
+import com.naruto.api.repository.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,12 +17,12 @@ import reactor.core.publisher.Mono;
 @Service
 public class CharacterService {
 
-    private final CharacterRepository repository;
+    private final CharacterRepository characterRepository;
     private final WebClient.Builder webClientBuilder;
 
     @Autowired
-    public CharacterService(CharacterRepository repository, WebClient.Builder webClientBuilder) {
-        this.repository = repository;
+    public CharacterService(CharacterRepository characterRepository, WebClient.Builder webClientBuilder) {
+        this.characterRepository = characterRepository;
         this.webClientBuilder = webClientBuilder;
     }
 
@@ -46,10 +46,10 @@ public class CharacterService {
         return monoDTO.block();
     }
 
-    public ResponseEntity postNewCharacter(CharactersPostDTO data) {
+    public ResponseEntity<String> postNewCharacter(CharactersPostDTO data) {
         try {
-        Long lastId = repository.findMostRecentId();
-        repository.save(new Character(data, lastId));
+        Long lastId = characterRepository.findMostRecentId();
+        characterRepository.save(new Character(data, lastId));
         return ResponseEntity.ok().body("Character created.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid character.");
@@ -58,7 +58,7 @@ public class CharacterService {
 
     public ResponseEntity<Page<CharactersGetDTO>> getAllLocalCharacters(Pageable pageable) {
         try {
-            Page<CharactersGetDTO> response = repository.findAll(pageable).map(CharactersGetDTO::new);
+            Page<CharactersGetDTO> response = characterRepository.findAll(pageable).map(CharactersGetDTO::new);
             if (response != null) {
                 return ResponseEntity.ok(response);
             } else {
@@ -84,7 +84,7 @@ public class CharacterService {
     }
 
     public CharactersGetDTO getCharacterByIdDB(Long id) {
-        return repository.findById(id).map(CharactersGetDTO::new).orElse(null);
+        return characterRepository.findById(id).map(CharactersGetDTO::new).orElse(null);
     }
 
     public ResponseEntity<CharactersGetDTO> getCharacterById(Long id) {
@@ -96,7 +96,7 @@ public class CharacterService {
                 response = itemInDatabase;
             } else {
                 CharactersPostDTO data = fetchCharacterById(id);
-                Character savedCharacter = repository.save(new Character(data));
+                Character savedCharacter = characterRepository.save(new Character(data));
                 response = new CharactersGetDTO(savedCharacter);
 
             }
@@ -109,12 +109,12 @@ public class CharacterService {
 
     }
 
-    public ResponseEntity<CharactersGetDTO> updateCharacterInfo(CharacterPutDTO data) {
+    public ResponseEntity<CharactersGetDTO> updateCharacterInfo(CharactersPutDTO data) {
         try {
-            Character characterToUpdate = repository.getReferenceById(data.id());
+            Character characterToUpdate = characterRepository.getReferenceById(data.id());
             if (characterToUpdate != null) {
                 characterToUpdate.updateInfo(data);
-                repository.save(characterToUpdate);
+                characterRepository.save(characterToUpdate);
                 return ResponseEntity.ok(new CharactersGetDTO(characterToUpdate));
             } else {
                 return ResponseEntity.notFound().build();
@@ -124,9 +124,9 @@ public class CharacterService {
         }
     }
 
-    public ResponseEntity deleteCharacterById(Long id) {
+    public ResponseEntity<String> deleteCharacterById(Long id) {
         try {
-            repository.deleteById(id);
+            characterRepository.deleteById(id);
             return ResponseEntity.ok().body("Character deleted.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid request.");

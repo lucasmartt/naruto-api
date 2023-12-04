@@ -1,4 +1,4 @@
-package com.naruto.api.characters.dto;
+package com.naruto.api.dto;
 
 public record PersonalPostDTO(
         String birthdate,

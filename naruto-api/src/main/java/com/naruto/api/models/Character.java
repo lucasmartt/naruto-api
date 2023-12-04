@@ -1,20 +1,17 @@
-package com.naruto.api.characters.repository;
+package com.naruto.api.models;
 
 import com.google.gson.Gson;
-import com.naruto.api.characters.dto.CharacterPutDTO;
-import com.naruto.api.characters.dto.CharactersPostDTO;
+import com.naruto.api.dto.CharactersPutDTO;
+import com.naruto.api.dto.CharactersPostDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.*;
 
 @Table(name = "characters")
 @Entity(name = "Character")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Builder
 @Getter
 public class Character {
     @Id
@@ -41,7 +38,9 @@ public class Character {
         this.name = data.name();
         this.jutsu = gson.toJson(data.jutsu());
         this.natureType = gson.toJson(data.natureType());
-        this.personal = new Personal(data.personal());
+        if (data.personal() != null) {
+            this.personal = new Personal(data.personal());
+        }
         this.tools = gson.toJson(data.tools());
     }
 
@@ -52,11 +51,13 @@ public class Character {
         this.name = data.name();
         this.jutsu = gson.toJson(data.jutsu());
         this.natureType = gson.toJson(data.natureType());
-        this.personal = new Personal(data.personal());
+        if (data.personal() != null) {
+            this.personal = new Personal(data.personal());
+        }
         this.tools = gson.toJson(data.tools());
     }
 
-    public void updateInfo(CharacterPutDTO data) {
+    public void updateInfo(CharactersPutDTO data) {
         Gson gson = new Gson();
 
         if (data.name() != null) {
