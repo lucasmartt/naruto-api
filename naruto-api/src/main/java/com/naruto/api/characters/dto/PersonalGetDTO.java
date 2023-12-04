@@ -1,4 +1,6 @@
-package com.naruto.api.characters;
+package com.naruto.api.characters.dto;
+
+import com.naruto.api.characters.repository.Personal;
 
 public record PersonalGetDTO(
         String birthdate,
