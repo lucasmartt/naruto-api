@@ -1,7 +1,10 @@
 package com.naruto.api.service;
 
-import com.naruto.api.characters.*;
-import com.naruto.api.characters.Character;
+import com.naruto.api.characters.dto.CharacterPutDTO;
+import com.naruto.api.characters.repository.Character;
+import com.naruto.api.characters.dto.CharactersGetDTO;
+import com.naruto.api.characters.dto.CharactersPostDTO;
+import com.naruto.api.characters.repository.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -104,6 +107,21 @@ public class CharacterService {
             return ResponseEntity.notFound().build();
         }
 
+    }
+
+    public ResponseEntity<CharactersGetDTO> updateCharacterInfo(CharacterPutDTO data) {
+        try {
+            Character characterToUpdate = repository.getReferenceById(data.id());
+            if (characterToUpdate != null) {
+                characterToUpdate.updateInfo(data);
+                repository.save(characterToUpdate);
+                return ResponseEntity.ok(new CharactersGetDTO(characterToUpdate));
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     public ResponseEntity deleteCharacterById(Long id) {
