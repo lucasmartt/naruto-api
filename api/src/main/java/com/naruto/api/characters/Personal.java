@@ -1,6 +1,5 @@
-package com.naruto.api.characters.repository;
+package com.naruto.api.characters;
 
-import com.naruto.api.characters.dto.PersonalPostDTO;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

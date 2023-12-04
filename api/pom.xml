@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.naruto</groupId>
-	<artifactId>naruto-api</artifactId>
+	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>naruto-api</name>
-	<description>Naruto REST API </description>
+	<name>api</name>
+	<description>Naruto rest API </description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

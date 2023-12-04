@@ -1,4 +1,4 @@
-package com.naruto.api.characters.repository;
+package com.naruto.api.characters;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
