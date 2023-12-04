@@ -1,6 +1,7 @@
-package com.naruto.api.characters;
+package com.naruto.api.characters.dto;
 
 import com.google.gson.Gson;
+import com.naruto.api.characters.repository.Character;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
