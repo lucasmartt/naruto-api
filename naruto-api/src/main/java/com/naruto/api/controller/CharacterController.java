@@ -1,9 +1,8 @@
 package com.naruto.api.controller;
 
-import com.naruto.api.characters.dto.CharacterPutDTO;
-import com.naruto.api.characters.dto.CharactersGetDTO;
-import com.naruto.api.characters.dto.CharactersPostDTO;
-import com.naruto.api.characters.repository.Character;
+import com.naruto.api.dto.CharactersPutDTO;
+import com.naruto.api.dto.CharactersGetDTO;
+import com.naruto.api.dto.CharactersPostDTO;
 import com.naruto.api.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,7 +22,7 @@ public class CharacterController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity postNewCharacter(@RequestBody CharactersPostDTO data) {
+    public ResponseEntity<String> postNewCharacter(@RequestBody CharactersPostDTO data) {
         return characterService.postNewCharacter(data);
     }
 
@@ -47,13 +46,13 @@ public class CharacterController {
     }
 
     @PutMapping
-    public ResponseEntity<CharactersGetDTO> updateCharacterInfo(@RequestBody CharacterPutDTO data) {
+    public ResponseEntity<CharactersGetDTO> updateCharacterInfo(@RequestBody CharactersPutDTO data) {
         return characterService.updateCharacterInfo(data);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity deleteCharacterById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCharacterById(@PathVariable Long id) {
         return characterService.deleteCharacterById(id);
     }
 }

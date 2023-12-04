@@ -1,11 +1,14 @@
-package com.naruto.api.characters.dto;
+package com.naruto.api.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
-public record CharacterPutDTO(
+@Builder
+public record CharactersPostDTO(
         @NotNull
         Long id,
+        @NotBlank
         String name,
         String[] jutsu,
         String[] natureType,
